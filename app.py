@@ -12,7 +12,7 @@ app.config.update(
     SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
-params = urllib.parse.quote_plus('DRIVER={SQL Server};SERVER=0.0.0.0;DATABASE=my-api;Trusted_Connection=yes;')
+params = urllib.parse.quote_plus('DRIVER={SQL Server};SERVER=192.168.1.5;DATABASE=my-api;Trusted_Connection=yes;')
 app.config['SQLALCHEMY_DATABASE_URI'] = "mssql+pyodbc:///?odbc_connect=%s" % params
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
