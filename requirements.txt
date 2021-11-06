@@ -1,5 +1,4 @@
 aniso8601==9.0.1
-entry-points-selectable==1.1.0
 click==8.0.3
 colorama==0.4.4
 distlib==0.3.3
