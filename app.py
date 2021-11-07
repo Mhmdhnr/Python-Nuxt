@@ -9,7 +9,7 @@ from services.random_names import RandomNames
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    SERVER_NAME='127.0.0.1:5000',
+    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
     SECRET_KEY='secret_xxx'
 )
 # params = urllib.parse.quote_plus('DRIVER={SQL Server};SERVER=localhost;DATABASE=my-api;Trusted_Connection=yes;')
@@ -17,7 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 CORS(app)
-
 
 @app.before_first_request
 def create_tables():
