@@ -24,6 +24,13 @@ def create_tables():
     db.init_app(app)
     db.create_all()
 
+@app.before_first_request
+def create_tables():
+    from db import db
+    db.init_app(app)
+    db.create_all()
+
+
 # @app.after_request
 # def after_request(response):
 #     response.headers.add('Access-Control-Allow-Origin', '*')
