@@ -71,6 +71,7 @@ class Choice(db.Model):
 
     def json(self):
         return {
+            'id': self.id,
             'choice_fa': self.choice_fa,
             'choice_en': self.choice_en,
             'index': self.index,
