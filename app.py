@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:mhmdhnr232323@127.0.0.1:5432/my-api"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.before_first_request
 def create_tables():
