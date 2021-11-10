@@ -36,7 +36,7 @@ class Question(db.Model):
 
     choices = db.relationship('Choice', lazy='dynamic')
     test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
-    test = db.relationship('Test')
+    # test = db.relationship('Test')
 
     def __init__(self, question_fa, index, test_id):
         self.question_fa = question_fa
@@ -65,7 +65,7 @@ class Choice(db.Model):
     choice_image = db.Column(db.String(80), nullable=True)
 
     question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
-    question = db.relationship('Question')
+    # question = db.relationship('Question')
 
     def __init__(self, choice_fa, index, question_id):
         self.choice_fa = choice_fa
