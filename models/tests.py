@@ -32,6 +32,7 @@ class Question(db.Model):
     question_fa = db.Column(db.String(80))
     question_en = db.Column(db.String(80), nullable=True)
     index = db.Column(db.Integer, nullable=True)
+    question_image = db.Column(db.String(80), nullable=True)
 
     choices = db.relationship('Choice', lazy='dynamic')
     test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
@@ -41,6 +42,7 @@ class Question(db.Model):
         self.question_fa = question_fa
         self.test_id = test_id
         self.index = index
+        self.question_image = ""
 
     def json(self):
         return {
@@ -49,7 +51,7 @@ class Question(db.Model):
             'question_en': self.question_en,
             'index': self.index,
             'choices': [choice.json() for choice in self.choices],
-            # 'test_id': self.test_id,
+            'question_image': self.question_image,
         }
 
 
@@ -60,6 +62,7 @@ class Choice(db.Model):
     choice_fa = db.Column(db.String(80))
     choice_en = db.Column(db.String(80), nullable=True)
     index = db.Column(db.Integer)
+    choice_image = db.Column(db.String(80), nullable=True)
 
     question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
     question = db.relationship('Question')
@@ -68,6 +71,7 @@ class Choice(db.Model):
         self.choice_fa = choice_fa
         self.index = index
         self.question_id = question_id
+        self.choice_image = ""
 
     def json(self):
         return {
@@ -75,6 +79,6 @@ class Choice(db.Model):
             'choice_fa': self.choice_fa,
             'choice_en': self.choice_en,
             'index': self.index,
-            # 'question_id': self.question_id,
+            'choice_image': self.choice_image,
         }
 
