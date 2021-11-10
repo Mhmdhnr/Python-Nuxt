@@ -13,11 +13,17 @@ class Test(db.Model):
         self.name_fa = name_fa
 
     def json(self):
+        questions = []
+        for question in self.questions:
+            questions.append(question)
+        questions.sort(key=lambda x: x.index)
+
+
         return {
             'id': self.id,
             'name_fa': self.name_fa,
             'name_en': self.name_en,
-            'questions': [question.json() for question in self.questions],
+            'questions': [question.json() for question in questions],
         }
 
     @classmethod
