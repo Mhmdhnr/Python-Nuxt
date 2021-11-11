@@ -1,4 +1,6 @@
+import json
 
 
 def calculate_raven_result(response):
-    return {'result': 'ok'}
+    res = json.loads(response)
+    return {'result': res}
