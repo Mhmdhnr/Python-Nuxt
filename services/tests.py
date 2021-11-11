@@ -21,8 +21,14 @@ class TestServices(Resource):
         test = Test.get_by_id(test_id)
         return test.json()
 
+
+class RavenServices(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('response', type=[int], required=True,
+                        help='This field cannot be left blank')
+
     def post(self):
-        data = TestServices.parser.parse_args()
+        data = RavenServices.parser.parse_args()
         calculate_raven_result(data['response'])
 
 

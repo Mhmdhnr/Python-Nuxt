@@ -4,13 +4,13 @@ from flask_cors import CORS
 
 from services.random_x_y import RandomXY
 from services.random_names import RandomNames
-from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices
+from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices
 
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    SERVER_NAME='127.0.0.1:5000',
+    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    # SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 
@@ -50,6 +50,7 @@ api.add_resource(TestsServices, '/get_tests')
 api.add_resource(TestServices, '/get_test/<int:test_id>')
 api.add_resource(QuestionsServices, '/get_questions')
 api.add_resource(ChoicesServices, '/get_choices')
+api.add_resource(RavenServices, '/post_raven_response')
 
 if __name__ == '__main__':
     app.run(debug=True)
