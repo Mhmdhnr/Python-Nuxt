@@ -24,7 +24,7 @@ class TestServices(Resource):
 
 class RavenServices(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('response', type=int, required=True,
+    parser.add_argument('response', type=str, required=True,
                         help='This field cannot be left blank')
 
     def __init__(self):
@@ -32,7 +32,7 @@ class RavenServices(Resource):
 
     def post(self):
         data = RavenServices.parser.parse_args()
-        calculate_raven_result(data['response'])
+        return calculate_raven_result(data['response'])
 
 
 class QuestionsServices(Resource):
