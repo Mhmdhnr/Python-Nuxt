@@ -13,9 +13,9 @@ class TestsServices(Resource):
 
 
 class TestServices(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('response', type=[int], required=True,
-                        help='This field cannot be left blank')
+    # parser = reqparse.RequestParser()
+    # parser.add_argument('response', type=[int], required=True,
+    #                     help='This field cannot be left blank')
 
     def get(self, test_id):
         test = Test.get_by_id(test_id)
@@ -24,8 +24,11 @@ class TestServices(Resource):
 
 class RavenServices(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('response', type=int, required=True,
+    parser.add_argument('response', type=object, required=True,
                         help='This field cannot be left blank')
+
+    def __init__(self):
+        return
 
     def post(self):
         data = RavenServices.parser.parse_args()
