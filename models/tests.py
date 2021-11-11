@@ -31,6 +31,28 @@ class Test(db.Model):
         return cls.query.filter_by(id=test_id).first()
 
 
+class TestAnswers(db.Model):
+    __tablename__ = 'TestAnswers'
+
+    id = db.Column(db.Integer, primary_key=True)
+    question_index = db.Column(db.Integer)
+    answer_index = db.Column(db.Integer)
+    test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
+
+    def __init__(self):
+        pass
+
+    def json(self):
+        return {
+            'id': self.id,
+            'question_index': self.question_index,
+            'answer_index': self.answer_index,
+            'test_id': self.test_id,
+        }
+
+    def get_by_test_id(self, test_id):
+        return self.query.filter_by(test_id=test_id).all()
+
 class Question(db.Model):
     __tablename__ = 'Questions'
 

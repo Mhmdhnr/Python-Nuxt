@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 from services.random_x_y import RandomXY
 from services.random_names import RandomNames
-from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices
+from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices, TestAnswersServices
 
 app = Flask(__name__)
 app.config.update(
@@ -51,6 +51,7 @@ api.add_resource(TestServices, '/get_test/<int:test_id>')
 api.add_resource(QuestionsServices, '/get_questions')
 api.add_resource(ChoicesServices, '/get_choices')
 api.add_resource(RavenServices, '/post_raven_response')
+api.add_resource(TestAnswersServices, '/get_test_answers/<int:test_id>')
 
 if __name__ == '__main__':
     app.run(debug=True)
