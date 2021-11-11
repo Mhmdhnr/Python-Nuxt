@@ -51,12 +51,16 @@ class Question(db.Model):
         self.question_image = ""
 
     def json(self):
+        choices = []
+        for choice in self.choices:
+            choices.append(choice)
+        choices.sort(key=lambda x: x.index)
         return {
             'id': self.id,
             'question_fa': self.question_fa,
             'question_en': self.question_en,
             'index': self.index,
-            'choices': [choice.json() for choice in self.choices],
+            'choices': [choice.json() for choice in choices],
             'question_image': self.question_image,
         }
 
