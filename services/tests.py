@@ -24,7 +24,7 @@ class TestServices(Resource):
 
 class RavenServices(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('response', type=object, required=True,
+    parser.add_argument('response', type=int, required=True,
                         help='This field cannot be left blank')
 
     def post(self):
