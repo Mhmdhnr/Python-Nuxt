@@ -16,6 +16,7 @@ def calculate_raven_result(response):
               82, 83, 85, 86, 87, 88, 89, 91, 92, 93, 94, 96, 97, 98, 100, 101, 102, 104, 106, 107, 109, 111, 112, 114,
               116, 118, 120, 122, 124, 126, 127, 131, 133, 136]
 
-    iq = result[correct_count - 1]
+    iq = result[0] if correct_count == 0 else result[correct_count - 1]
 
-    return {'iq': iq}
+    return {'iq': iq,
+            'correct': correct_count}

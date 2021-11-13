@@ -7,10 +7,12 @@ class Test(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name_fa = db.Column(db.String(80))
     name_en = db.Column(db.String(80), nullable=True)
+    time = db.Column(db.Integer)
     questions = db.relationship('Question', lazy='dynamic')
 
-    def __init__(self, name_fa):
+    def __init__(self, name_fa, time):
         self.name_fa = name_fa
+        self.time = time
 
     def json(self):
         questions = []
@@ -23,6 +25,7 @@ class Test(db.Model):
             'id': self.id,
             'name_fa': self.name_fa,
             'name_en': self.name_en,
+            'time': self.time,
             'questions': [question.json() for question in questions],
         }
 
