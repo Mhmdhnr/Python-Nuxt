@@ -8,6 +8,7 @@ class RandomXY(Resource):
                         help='This field cannot be left blank')
 
     def get(self, count):
+        print(count)
         return [x_y.json() for x_y in get_x_y(count)]
 
 
