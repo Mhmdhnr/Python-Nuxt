@@ -44,24 +44,18 @@ def calculate_raven_result(response):
                 128, 127, 126, 125, 124, 122, 121, 120, 119, 117, 116, 115, 114, 113, 112, 111, 110, 108, 107, 106,
                 105, 104, 102, 101, 100, 98, 96, 94, 92, 90, 87, 85, 82, 78, 75, 71, 66, 51, 56, 54]
 
-    print(len(result_9))
-    print(len(result_10))
-    print(len(result_11))
-    print(len(result_12))
-    print(len(result_13))
-    print(len(result_14))
-    print(len(result_15))
-    print(len(result_16))
-    print(len(result_17))
-    print(len(result_plus_18))
     choices = json.loads(response).get('choices')
     age = json.loads(response).get('age')
     answers = TestAnswers.query.filter_by(test_id=2).all()
     correct_count = 0
-    print(answers)
     print(choices)
     for i in range(60):
-        if answers[i].answer_index == choices[i]:
+        question_answer = next(answer for answer in answers if answer.question_index == i + 1)
+        print("q" + str(question_answer.question_index))
+        print("a" + str(question_answer.answer_index))
+        print("c" + str(choices[i]))
+
+        if question_answer.answer_index == choices[i]:
             correct_count += 1
 
     iq = 0
