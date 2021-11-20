@@ -1,5 +1,5 @@
 import json
-from models.tests import TestAnswers
+from models.tests import Choice, Question
 
 
 def calculate_raven_result(response):
@@ -46,16 +46,24 @@ def calculate_raven_result(response):
 
     choices = json.loads(response).get('choices')
     age = json.loads(response).get('age')
-    answers = TestAnswers.query.filter_by(test_id=2).all()
+
+    test_questions = Question.query.filter_by(test_id=2).all()
+    test_questions_id = []
+    for test_question in test_questions:
+        test_questions_id.append(test_question.id)
+    test_choices = Choice.query.filter(Choice.question_id.in_(test_questions_id)).all()
+    correct_answers = []
+    for i in range(60):
+        question = next(test_question for test_question in test_questions if test_question.index == i + 1)
+        question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == question.id]
+        correct_choice = next(question_choice for question_choice in question_choices if question_choice.points == 1)
+        correct_answers.append(correct_choice.index)
+    print(correct_answers)
+
     correct_count = 0
     print(choices)
     for i in range(60):
-        question_answer = next(answer for answer in answers if answer.question_index == i + 1)
-        print("q" + str(question_answer.question_index))
-        print("a" + str(question_answer.answer_index))
-        print("c" + str(choices[i]))
-
-        if question_answer.answer_index == choices[i]:
+        if correct_answers[i] == choices[i]:
             correct_count += 1
 
     iq = 0

@@ -63,16 +63,18 @@ class Question(db.Model):
     question_fa = db.Column(db.String(80))
     question_en = db.Column(db.String(80), nullable=True)
     index = db.Column(db.Integer, nullable=True)
+    indicator = db.Column(db.Integer)
     question_image = db.Column(db.String(80), nullable=True)
 
     choices = db.relationship('Choice', lazy='dynamic')
     test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
     # test = db.relationship('Test')
 
-    def __init__(self, question_fa, index, test_id):
+    def __init__(self, question_fa, index, test_id, indicator):
         self.question_fa = question_fa
         self.test_id = test_id
         self.index = index
+        self.indicator = indicator
         self.question_image = ""
 
     def json(self):
@@ -85,6 +87,7 @@ class Question(db.Model):
             'question_fa': self.question_fa,
             'question_en': self.question_en,
             'index': self.index,
+            'indicator': self.indicator,
             'choices': [choice.json() for choice in choices],
             'question_image': self.question_image,
         }
@@ -97,14 +100,18 @@ class Choice(db.Model):
     choice_fa = db.Column(db.String(80))
     choice_en = db.Column(db.String(80), nullable=True)
     index = db.Column(db.Integer)
+    points = db.Column(db.Integer)
     choice_image = db.Column(db.String(80), nullable=True)
+    is_correct = db.Column(db.Boolean)
 
     question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
     # question = db.relationship('Question')
 
-    def __init__(self, choice_fa, index, question_id):
+    def __init__(self, choice_fa, index, points, question_id, is_correct):
         self.choice_fa = choice_fa
+        self.is_correct = is_correct
         self.index = index
+        self.points = points
         self.question_id = question_id
         self.choice_image = ""
 
@@ -113,6 +120,8 @@ class Choice(db.Model):
             'id': self.id,
             'choice_fa': self.choice_fa,
             'choice_en': self.choice_en,
+            'is_correct': self.is_correct,
+            'points': self.points,
             'index': self.index,
             'choice_image': self.choice_image,
         }
