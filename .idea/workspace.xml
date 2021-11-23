@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/business/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/business/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/tests.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="17" column="133" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="133" />
+            <state relative-caret-position="306">
+              <caret line="18" column="133" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="133" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
               </folding>
@@ -74,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+            <state relative-caret-position="-396">
+              <caret line="2" column="72" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -83,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/business/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="448">
-              <caret line="77" column="19" lean-forward="true" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
+            <state relative-caret-position="471">
+              <caret line="114" column="10" lean-forward="true" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -98,7 +98,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
+            <state relative-caret-position="658">
               <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
             </state>
           </provider>
@@ -139,13 +139,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/services/tests.py" />
         <option value="$PROJECT_DIR$/services/random_x_y.py" />
         <option value="$PROJECT_DIR$/models/random_name.py" />
         <option value="$PROJECT_DIR$/services/random_names.py" />
         <option value="$PROJECT_DIR$/business/random_names.py" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/models/tests.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/services/tests.py" />
         <option value="$PROJECT_DIR$/business/tests.py" />
       </list>
     </option>
@@ -396,26 +396,26 @@
       <option name="project" value="LOCAL" />
       <updated>1637166124237</updated>
     </task>
-    <task id="LOCAL-00026" summary="2">
-      <created>1636298515398</created>
+    <task id="LOCAL-00026" summary="database refactor">
+      <created>1637411177107</created>
       <option name="number" value="00026" />
       <option name="presentableId" value="LOCAL-00026" />
       <option name="project" value="LOCAL" />
-      <updated>1636298515398</updated>
+      <updated>1637411177107</updated>
     </task>
-    <task id="LOCAL-00027" summary="2">
-      <created>1636302482015</created>
+    <task id="LOCAL-00027" summary="database refactor">
+      <created>1637411195604</created>
       <option name="number" value="00027" />
       <option name="presentableId" value="LOCAL-00027" />
       <option name="project" value="LOCAL" />
-      <updated>1636302482015</updated>
+      <updated>1637411195604</updated>
     </task>
-    <task id="LOCAL-00028" summary="good for up and running">
-      <created>1636304063397</created>
+    <task id="LOCAL-00028" summary="database refactor">
+      <created>1637411246030</created>
       <option name="number" value="00028" />
       <option name="presentableId" value="LOCAL-00028" />
       <option name="project" value="LOCAL" />
-      <updated>1636304063397</updated>
+      <updated>1637411246030</updated>
     </task>
     <task id="LOCAL-00029" summary="good for up and running">
       <created>1636474644230</created>
@@ -494,7 +494,7 @@
       <option name="project" value="LOCAL" />
       <updated>1636572265759</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -510,8 +510,8 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32960895" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" weight="0.32719395" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.4837989" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.49947312" visible="true" weight="0.326257" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.17318435" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50052685" side_tool="true" weight="0.32960895" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32849163" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -529,7 +529,8 @@
     <MESSAGE value="good for now" />
     <MESSAGE value="deploy" />
     <MESSAGE value="raven" />
-    <option name="LAST_COMMIT_MESSAGE" value="raven" />
+    <MESSAGE value="database refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="database refactor" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/db.py">
@@ -540,13 +541,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/util/logz.py" />
-    <entry file="file://$PROJECT_DIR$/app.py">
+    <entry file="file://$PROJECT_DIR$/models/random_name.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="17" column="133" selection-start-line="17" selection-start-column="69" selection-end-line="17" selection-end-column="133" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="19" selection-start-line="19" selection-end-line="20" />
         </state>
       </provider>
     </entry>
@@ -579,16 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/services/random_x_y.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -599,26 +587,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/random_name.py">
+    <entry file="file://$PROJECT_DIR$/models/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" selection-start-line="19" selection-end-line="20" />
+        <state relative-caret-position="658">
+          <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/tests.py">
+    <entry file="file://$PROJECT_DIR$/services/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="122" column="18" selection-start-line="122" selection-start-column="18" selection-end-line="122" selection-end-column="18" />
+        <state relative-caret-position="-396">
+          <caret line="2" column="72" selection-start-line="2" selection-start-column="72" selection-end-line="2" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/business/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="77" column="19" lean-forward="true" selection-start-line="77" selection-start-column="19" selection-end-line="77" selection-end-column="19" />
+        <state relative-caret-position="471">
+          <caret line="114" column="10" lean-forward="true" selection-start-line="114" selection-start-column="10" selection-end-line="114" selection-end-column="10" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="133" selection-start-line="18" selection-start-column="69" selection-end-line="18" selection-end-column="133" />
+          <folding>
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>

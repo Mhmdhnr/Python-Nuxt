@@ -94,3 +94,28 @@ def calculate_raven_result(response):
         'iq': iq,
         'correct': correct_count
     }
+
+
+def calculate_mbti_result(response):
+    choices = json.loads(response).get('choices')
+    print(choices)
+    return {
+        'type': 'INTP',
+        'EI': {
+            'result': 'E',
+            'value': 15,
+        },
+        'SN': {
+            'result': 'N',
+            'value': 25,
+        },
+        'TF': {
+            'result': 'T',
+            'value': 7,
+        },
+        'JP': {
+            'result': 'P',
+            'value': 39,
+        },
+    }
+

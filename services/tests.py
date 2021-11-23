@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.tests import Test, Question, Choice, TestAnswers
-from business.tests import calculate_raven_result
+from business.tests import calculate_raven_result, calculate_mbti_result
 
 
 class TestsServices(Resource):
@@ -39,6 +39,19 @@ class RavenServices(Resource):
     def post(self):
         data = RavenServices.parser.parse_args()
         return calculate_raven_result(data['clientAnswers'])
+
+
+class MBTIServices(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('clientAnswers', type=str, required=True,
+                        help='This field cannot be left blank')
+
+    def __init__(self):
+        return
+
+    def post(self):
+        data = MBTIServices.parser.parse_args()
+        return calculate_mbti_result(data['clientAnswers'])
 
 
 class QuestionsServices(Resource):
