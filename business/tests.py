@@ -100,7 +100,7 @@ def calculate_mbti_result(response):
     choices = json.loads(response).get('choices')
     print(choices)
     return {
-        'type': 'INTP',
+        'type': 'ENTP',
         'EI': {
             'result': 'E',
             'value': 15,
