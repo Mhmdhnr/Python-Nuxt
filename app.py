@@ -9,12 +9,14 @@ from services.tests import TestsServices, QuestionsServices, ChoicesServices, Te
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    # SERVER_NAME='127.0.0.1:5000',
+    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 
 api = Api(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
