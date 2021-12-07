@@ -1,5 +1,6 @@
 import json
 from models.tests import Choice, Question
+import math
 
 
 def calculate_raven_result(response):
@@ -99,23 +100,106 @@ def calculate_raven_result(response):
 def calculate_mbti_result(response):
     choices = json.loads(response).get('choices')
     print(choices)
+    test_questions = Question.query.filter_by(test_id=1).all()
+    test_questions_id = []
+    for test_question in test_questions:
+        test_questions_id.append(test_question.id)
+    test_choices = Choice.query.filter(Choice.question_id.in_(test_questions_id)).all()
+    ei_questions = [test_question for test_question in test_questions if test_question.indicator == 1]
+    sn_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
+    tf_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
+    jp_questions = [test_question for test_question in test_questions if test_question.indicator == 4]
+
+    ei_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in ei_questions)]
+    sn_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in sn_questions)]
+    tf_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in tf_questions)]
+    jp_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in jp_questions)]
+
+    # total_e_points = sum(1 for choice in ei_choices if choice.points == 0)
+    client_e_point = 0
+    client_i_point = 0
+    client_s_point = 0
+    client_n_point = 0
+    client_t_point = 0
+    client_f_point = 0
+    client_j_point = 0
+    client_p_point = 0
+    for i in range(93):
+        question = next(question for question in test_questions if question.index == i + 1)
+        question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == question.id]
+        client_response = choices[i]
+        if question.id in (question.id for question in ei_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                if selected_choice.points == 1:
+                    client_e_point += 1
+                else:
+                    client_i_point += 1
+        elif question.id in (question.id for question in sn_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                if selected_choice.points == 1:
+                    client_s_point += 1
+                else:
+                    client_n_point += 1
+        elif question.id in (question.id for question in tf_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                if selected_choice.points == 1:
+                    client_t_point += 1
+                else:
+                    client_f_point += 1
+        elif question.id in (question.id for question in jp_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                if selected_choice.points == 1:
+                    client_j_point += 1
+                else:
+                    client_p_point += 1
+
+    client_e_point = client_e_point + 1 if client_e_point == client_i_point else client_e_point
+    client_ei = "E" if client_e_point > client_i_point else "I"
+    client_ei_value = client_e_point / (client_e_point + client_i_point) * 50 if client_ei == "E" else client_i_point / (client_e_point + client_i_point) * 50
+
+    client_s_point = client_s_point + 1 if client_s_point == client_n_point else client_s_point
+    client_sn = "S" if client_s_point > client_n_point else "N"
+    client_sn_value = client_s_point / (client_s_point + client_n_point) * 50 if client_sn == "S" else client_n_point / (client_s_point + client_n_point) * 50
+
+    client_t_point = client_t_point + 1 if client_t_point == client_f_point else client_t_point
+    client_tf = "T" if client_t_point > client_f_point else "F"
+    client_tf_value = client_t_point / (client_t_point + client_f_point) * 50 if client_tf == "T" else client_f_point / (client_t_point + client_f_point) * 50
+
+    client_j_point = client_j_point + 1 if client_j_point == client_p_point else client_j_point
+    client_jp = "J" if client_j_point > client_p_point else "P"
+    client_jp_value = client_j_point / (client_j_point + client_p_point) * 50 if client_jp == "J" else client_p_point / (client_j_point + client_p_point) * 50
+
+    client_type = ""
+    client_type = client_type + "E" if client_ei == "E" else client_type + "I"
+    client_type = client_type + "S" if client_sn == "S" else client_type + "N"
+    client_type = client_type + "T" if client_tf == "T" else client_type + "F"
+    client_type = client_type + "J" if client_jp == "J" else client_type + "P"
+
+    print(len(ei_questions))
+    print(client_e_point)
+    print(client_i_point)
+    print(len(ei_questions) + len(sn_questions) + len(tf_questions) + len(jp_questions) + 6)
     return {
-        'type': 'ENTP',
+        'type': client_type,
         'EI': {
-            'result': 'E',
-            'value': 15,
+            'result': client_ei,
+            'value': math.floor(client_ei_value),
         },
         'SN': {
-            'result': 'N',
-            'value': 25,
+            'result': client_sn,
+            'value': math.floor(client_sn_value),
         },
         'TF': {
-            'result': 'T',
-            'value': 7,
+            'result': client_tf,
+            'value': math.floor(client_tf_value),
         },
         'JP': {
-            'result': 'P',
-            'value': 39,
+            'result': client_jp,
+            'value': math.floor(client_jp_value),
         },
     }
 
