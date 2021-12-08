@@ -159,19 +159,19 @@ def calculate_mbti_result(response):
 
     client_e_point = client_e_point + 1 if client_e_point == client_i_point else client_e_point
     client_ei = "E" if client_e_point > client_i_point else "I"
-    client_ei_value = client_e_point / (client_e_point + client_i_point) * 50 if client_ei == "E" else client_i_point / (client_e_point + client_i_point) * 50
+    client_ei_value = abs(client_e_point - client_i_point) / (client_e_point + client_i_point) * 50
 
     client_s_point = client_s_point + 1 if client_s_point == client_n_point else client_s_point
     client_sn = "S" if client_s_point > client_n_point else "N"
-    client_sn_value = client_s_point / (client_s_point + client_n_point) * 50 if client_sn == "S" else client_n_point / (client_s_point + client_n_point) * 50
+    client_sn_value = abs(client_s_point - client_n_point) / (client_s_point + client_n_point) * 50
 
     client_t_point = client_t_point + 1 if client_t_point == client_f_point else client_t_point
     client_tf = "T" if client_t_point > client_f_point else "F"
-    client_tf_value = client_t_point / (client_t_point + client_f_point) * 50 if client_tf == "T" else client_f_point / (client_t_point + client_f_point) * 50
+    client_tf_value = abs(client_t_point - client_f_point) / (client_t_point + client_f_point) * 50
 
     client_j_point = client_j_point + 1 if client_j_point == client_p_point else client_j_point
     client_jp = "J" if client_j_point > client_p_point else "P"
-    client_jp_value = client_j_point / (client_j_point + client_p_point) * 50 if client_jp == "J" else client_p_point / (client_j_point + client_p_point) * 50
+    client_jp_value = abs(client_j_point - client_p_point) / (client_j_point + client_p_point) * 50
 
     client_type = ""
     client_type = client_type + "E" if client_ei == "E" else client_type + "I"
