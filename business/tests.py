@@ -1,5 +1,5 @@
 import json
-from models.tests import Choice, Question
+from models.tests import Choice, Question, QuestionChoices
 import math
 
 
@@ -52,11 +52,13 @@ def calculate_raven_result(response):
     test_questions_id = []
     for test_question in test_questions:
         test_questions_id.append(test_question.id)
-    test_choices = Choice.query.filter(Choice.question_id.in_(test_questions_id)).all()
+    test_choices = QuestionChoices.query.filter(QuestionChoices.question_id.in_(test_questions_id)).all()
+    # test_choices = Choice.query.filter(Choice.question_id.in_(test_questions_id)).all()
     correct_answers = []
     for i in range(60):
         question = next(test_question for test_question in test_questions if test_question.index == i + 1)
         question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == question.id]
+        print(question_choices)
         correct_choice = next(question_choice for question_choice in question_choices if question_choice.points == 1)
         correct_answers.append(correct_choice.index)
     print(correct_answers)
@@ -104,18 +106,18 @@ def calculate_mbti_result(response):
     test_questions_id = []
     for test_question in test_questions:
         test_questions_id.append(test_question.id)
-    test_choices = Choice.query.filter(Choice.question_id.in_(test_questions_id)).all()
+    test_choices = QuestionChoices.query.filter(QuestionChoices.question_id.in_(test_questions_id)).all()
     ei_questions = [test_question for test_question in test_questions if test_question.indicator == 1]
     sn_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
     tf_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
     jp_questions = [test_question for test_question in test_questions if test_question.indicator == 4]
 
-    ei_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in ei_questions)]
-    sn_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in sn_questions)]
-    tf_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in tf_questions)]
-    jp_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in jp_questions)]
-
+    # ei_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in ei_questions)]
+    # sn_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in sn_questions)]
+    # tf_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in tf_questions)]
+    # jp_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in jp_questions)]
     # total_e_points = sum(1 for choice in ei_choices if choice.points == 0)
+
     client_e_point = 0
     client_i_point = 0
     client_s_point = 0
@@ -201,5 +203,65 @@ def calculate_mbti_result(response):
             'result': client_jp,
             'value': math.floor(client_jp_value),
         },
+    }
+
+
+def calculate_holland_result(response):
+    choices = json.loads(response).get('choices')
+    print(choices)
+    test_questions = Question.query.filter_by(test_id=3).all()
+    test_questions_id = []
+    for test_question in test_questions:
+        test_questions_id.append(test_question.id)
+    test_choices = QuestionChoices.query.filter(QuestionChoices.question_id.in_(test_questions_id)).all()
+    r_questions = [test_question for test_question in test_questions if test_question.indicator == 1]
+    i_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
+    a_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
+    s_questions = [test_question for test_question in test_questions if test_question.indicator == 4]
+    e_questions = [test_question for test_question in test_questions if test_question.indicator == 5]
+    c_questions = [test_question for test_question in test_questions if test_question.indicator == 6]
+    client_r_points = 0
+    client_i_points = 0
+    client_a_points = 0
+    client_s_points = 0
+    client_e_points = 0
+    client_c_points = 0
+    for i in range(48):
+        question = next(question for question in test_questions if question.index == i + 1)
+        question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == question.id]
+        client_response = choices[i]
+        if question.id in (question.id for question in r_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_r_points += selected_choice.points
+        if question.id in (question.id for question in i_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_i_points += selected_choice.points
+        if question.id in (question.id for question in a_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_a_points += selected_choice.points
+        if question.id in (question.id for question in s_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_s_points += selected_choice.points
+        if question.id in (question.id for question in e_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_e_points += selected_choice.points
+        if question.id in (question.id for question in c_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                client_c_points += selected_choice.points
+
+
+    return {
+        "R": client_r_points,
+        "I": client_i_points,
+        "A": client_a_points,
+        "S": client_s_points,
+        "E": client_e_points,
+        "C": client_c_points,
     }
 

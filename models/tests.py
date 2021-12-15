@@ -34,28 +34,6 @@ class Test(db.Model):
         return cls.query.filter_by(id=test_id).first()
 
 
-class TestAnswers(db.Model):
-    __tablename__ = 'TestAnswers'
-
-    id = db.Column(db.Integer, primary_key=True)
-    question_index = db.Column(db.Integer)
-    answer_index = db.Column(db.Integer)
-    test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
-
-    def __init__(self):
-        pass
-
-    def json(self):
-        return {
-            'id': self.id,
-            'question_index': self.question_index,
-            'answer_index': self.answer_index,
-            'test_id': self.test_id,
-        }
-
-    def get_by_test_id(self, test_id):
-        return self.query.filter_by(test_id=test_id).all()
-
 class Question(db.Model):
     __tablename__ = 'Questions'
 
@@ -66,30 +44,50 @@ class Question(db.Model):
     indicator = db.Column(db.Integer)
     question_image = db.Column(db.String(80), nullable=True)
 
-    choices = db.relationship('Choice', lazy='dynamic')
+    question_choices = db.relationship('QuestionChoices', lazy='dynamic')
     test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
     # test = db.relationship('Test')
 
     def __init__(self, question_fa, index, test_id, indicator):
         self.question_fa = question_fa
         self.test_id = test_id
-        self.index = index
         self.indicator = indicator
+        self.index = index
         self.question_image = ""
 
     def json(self):
-        choices = []
-        for choice in self.choices:
-            choices.append(choice)
-        choices.sort(key=lambda x: x.index)
+        question_choices = []
+        for question_choice in self.question_choices:
+            question_choices.append(question_choice)
+        question_choices.sort(key=lambda x: x.index)
         return {
             'id': self.id,
             'question_fa': self.question_fa,
             'question_en': self.question_en,
             'index': self.index,
             'indicator': self.indicator,
-            'choices': [choice.json() for choice in choices],
+            'choices': [question_choice.json() for question_choice in question_choices],
             'question_image': self.question_image,
+        }
+
+
+class QuestionChoices(db.Model):
+    __tablename__ = 'QuestionChoices'
+    id = db.Column(db.Integer, primary_key=True)
+    index = db.Column(db.Integer)
+    is_correct = db.Column(db.Boolean)
+    points = db.Column(db.Integer)
+
+    question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
+    choice_id = db.Column(db.Integer, db.ForeignKey('Choices.id'))
+
+    def json(self):
+        return {
+            'id': self.id,
+            'is_correct': self.is_correct,
+            'points': self.points,
+            'index': self.index,
+            'content': Choice.query.filter_by(id=self.choice_id).first().json(),
         }
 
 
@@ -99,19 +97,19 @@ class Choice(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     choice_fa = db.Column(db.String(80))
     choice_en = db.Column(db.String(80), nullable=True)
-    index = db.Column(db.Integer)
-    points = db.Column(db.Integer)
+    # index = db.Column(db.Integer)
+    # points = db.Column(db.Integer)
     choice_image = db.Column(db.String(80), nullable=True)
-    is_correct = db.Column(db.Boolean)
+    # is_correct = db.Column(db.Boolean)
 
-    question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
+    # question_id = db.Column(db.Integer, db.ForeignKey('Questions.id'))
     # question = db.relationship('Question')
 
     def __init__(self, choice_fa, index, points, question_id, is_correct):
         self.choice_fa = choice_fa
-        self.is_correct = is_correct
-        self.index = index
-        self.points = points
+        # self.is_correct = is_correct
+        # self.index = index
+        # self.points = points
         self.question_id = question_id
         self.choice_image = ""
 
@@ -120,9 +118,9 @@ class Choice(db.Model):
             'id': self.id,
             'choice_fa': self.choice_fa,
             'choice_en': self.choice_en,
-            'is_correct': self.is_correct,
-            'points': self.points,
-            'index': self.index,
+            # 'is_correct': self.is_correct,
+            # 'points': self.points,
+            # 'index': self.index,
             'choice_image': self.choice_image,
         }
 
