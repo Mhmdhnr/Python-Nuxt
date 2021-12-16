@@ -60,6 +60,7 @@ class Question(db.Model):
         for question_choice in self.question_choices:
             question_choices.append(question_choice)
         question_choices.sort(key=lambda x: x.index)
+        print("q >>>" + str(self.id))
         return {
             'id': self.id,
             'question_fa': self.question_fa,
@@ -82,6 +83,7 @@ class QuestionChoices(db.Model):
     choice_id = db.Column(db.Integer, db.ForeignKey('Choices.id'))
 
     def json(self):
+        print(self.id)
         return {
             'id': self.id,
             'is_correct': self.is_correct,
