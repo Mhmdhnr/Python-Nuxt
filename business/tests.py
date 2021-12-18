@@ -255,7 +255,6 @@ def calculate_holland_result(response):
                 selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
                 client_c_points += selected_choice.points
 
-
     return {
         "R": client_r_points,
         "I": client_i_points,
@@ -264,4 +263,108 @@ def calculate_holland_result(response):
         "E": client_e_points,
         "C": client_c_points,
     }
+
+
+def calculate_johnson_result(response):
+    choices = json.loads(response).get('choices')
+    print(choices)
+    test_questions = Question.query.filter_by(test_id=4).all()
+    test_questions_id = []
+    for test_question in test_questions:
+        test_questions_id.append(test_question.id)
+    test_choices = QuestionChoices.query.filter(QuestionChoices.question_id.in_(test_questions_id)).all()
+    aptitude_1_questions = [test_question for test_question in test_questions if test_question.indicator == 1]
+    aptitude_2_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
+    aptitude_3_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
+    aptitude_4_questions = [test_question for test_question in test_questions if test_question.indicator == 4]
+    aptitude_5_questions = [test_question for test_question in test_questions if test_question.indicator == 5]
+    aptitude_6_questions = [test_question for test_question in test_questions if test_question.indicator == 6]
+    aptitude_7_questions = [test_question for test_question in test_questions if test_question.indicator == 7]
+    aptitude_8_questions = [test_question for test_question in test_questions if test_question.indicator == 8]
+    aptitude_9_questions = [test_question for test_question in test_questions if test_question.indicator == 9]
+    aptitude_10_questions = [test_question for test_question in test_questions if test_question.indicator == 10]
+    aptitude_11_questions = [test_question for test_question in test_questions if test_question.indicator == 11]
+    aptitude_12_questions = [test_question for test_question in test_questions if test_question.indicator == 12]
+    aptitude_1_points = 0
+    aptitude_2_points = 0
+    aptitude_3_points = 0
+    aptitude_4_points = 0
+    aptitude_5_points = 0
+    aptitude_6_points = 0
+    aptitude_7_points = 0
+    aptitude_8_points = 0
+    aptitude_9_points = 0
+    aptitude_10_points = 0
+    aptitude_11_points = 0
+    aptitude_12_points = 0
+
+    for i in range(58):
+        question = next(question for question in test_questions if question.index == i + 1)
+        question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == question.id]
+        client_response = choices[i]
+        if question.id in (question.id for question in aptitude_1_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_1_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_2_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_2_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_3_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_3_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_4_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_4_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_5_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_5_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_6_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_6_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_7_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_7_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_8_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_8_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_9_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_9_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_10_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_10_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_11_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_11_points += selected_choice.points
+        if question.id in (question.id for question in aptitude_12_questions):
+            if any(question_choice for question_choice in question_choices if question_choice.index == client_response):
+                selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
+                aptitude_12_points += selected_choice.points
+
+    return {
+        'aptitude1': math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
+        'aptitude2': math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
+        'aptitude3': math.floor(aptitude_3_points / len(aptitude_3_questions) * 100),
+        'aptitude4': math.floor(aptitude_4_points / len(aptitude_4_questions) * 100),
+        'aptitude5': math.floor(aptitude_5_points / len(aptitude_5_questions) * 100),
+        'aptitude6': math.floor(aptitude_6_points / len(aptitude_6_questions) * 100),
+        'aptitude7': math.floor(aptitude_7_points / len(aptitude_7_questions) * 100),
+        'aptitude8': math.floor(aptitude_8_points / len(aptitude_8_questions) * 100),
+        'aptitude9': math.floor(aptitude_9_points / len(aptitude_9_questions) * 100),
+        'aptitude10': math.floor(aptitude_10_points / len(aptitude_10_questions) * 100),
+        'aptitude11': math.floor(aptitude_11_points / len(aptitude_11_questions) * 100),
+        'aptitude12': math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
+    }
+
+
 
