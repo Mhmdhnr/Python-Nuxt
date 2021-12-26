@@ -1,17 +1,21 @@
 from flask import Flask
 from flask_restful import Api, Resource
 from flask_cors import CORS
+from flask_login import LoginManager
 
+from models.user import User
+from services.user import SignInUp, Token
 from services.random_x_y import RandomXY
 from services.random_names import RandomNames
 from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices, MBTIServices\
     , HollandServices, JohnsonServices
 
+
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    # SERVER_NAME='127.0.0.1:5000',
+    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -23,6 +27,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 
 api = Api(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User(user_id)
+
 
 @app.before_first_request
 def create_tables():
@@ -49,6 +61,8 @@ class Welcome(Resource):
 
 api.add_resource(Welcome, '/')
 api.add_resource(RandomXY, '/get_random_x_y/<int:count>')
+api.add_resource(Token, '/send_token')
+api.add_resource(SignInUp, '/sign')
 api.add_resource(RandomNames, '/get_random_names/<int:count>')
 api.add_resource(TestsServices, '/get_tests')
 api.add_resource(TestServices, '/get_test/<int:test_id>')
