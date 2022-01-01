@@ -11,7 +11,8 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(80), nullable=True)
     password = db.Column(db.String(80), nullable=True)
 
-    def __init__(self, phone_number=None, user_name=None, password=None, email_address=None):
+    def __init__(self, user_id=None, phone_number=None, user_name=None, password=None, email_address=None):
+        self.id = user_id
         self.phone_number = phone_number
         self.username = user_name
         self.password = password
@@ -30,6 +31,9 @@ class User(db.Model, UserMixin):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    def is_authenticated(self):
+        return True
 
 
 class Token(db.Model):

@@ -1,6 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.tests import Test, Question, Choice
 from business.tests import calculate_raven_result, calculate_mbti_result, calculate_holland_result,calculate_johnson_result
+from flask_login import login_required
 
 
 class TestsServices(Resource):
@@ -13,10 +14,8 @@ class TestsServices(Resource):
 
 
 class TestServices(Resource):
-    # parser = reqparse.RequestParser()
-    # parser.add_argument('response', type=[int], required=True,
-    #                     help='This field cannot be left blank')
 
+    @login_required
     def get(self, test_id):
         test = Test.get_by_id(test_id)
         return test.json()
@@ -46,7 +45,6 @@ class MBTIServices(Resource):
     def post(self):
         data = MBTIServices.parser.parse_args()
         return calculate_mbti_result(data['clientAnswers'])
-
 
 class HollandServices(Resource):
     parser = reqparse.RequestParser()

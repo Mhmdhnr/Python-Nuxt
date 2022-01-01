@@ -1,5 +1,14 @@
 from flask_restful import Resource, reqparse
 from business.user import sign_in_up, send_token, sign_out
+from flask_login import current_user
+from models.user import User
+
+
+class UserInfo(Resource):
+
+    def get(self):
+        if current_user.is_authenticated:
+            return User.query.filter_by(id=current_user.id).first().json()
 
 
 class SignInUp(Resource):

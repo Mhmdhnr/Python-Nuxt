@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_login import LoginManager
 
 from models.user import User
-from services.user import SignInUp, Token
+from services.user import SignInUp, Token, SignOut, UserInfo
 from services.random_x_y import RandomXY
 from services.random_names import RandomNames
 from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices, MBTIServices\
@@ -19,6 +19,8 @@ app.config.update(
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SECURE'] = 'True'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a77b56c2582bddbf92d11296d4483e04c1e82dc8db210d4bddda7bf@ec2-3-214-121-14.compute-1.amazonaws.com:5432/d5ur0qqint8ced"
@@ -26,9 +28,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 
 
 api = Api(app)
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True,)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+# @app.after_request
+# def after_request(response):
+    # response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+    # response.headers.add('Accept', 'application/json')
+    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Methods,Access-Control-Allow-Origin,access-control-allow-credentials,Access-Control-Allow-Headers')
+    # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    # response.headers.add('Access-Control-Allow-Credentials', 'true')
+    # return response
 
 
 @login_manager.user_loader
@@ -42,17 +53,6 @@ def create_tables():
     db.init_app(app)
     db.create_all()
 
-@app.before_first_request
-def create_tables():
-    from db import db
-    db.init_app(app)
-    db.create_all()
-
-
-# @app.after_request
-# def after_request(response):
-#     response.headers.add('Access-Control-Allow-Origin', '*')
-#     return response
 
 class Welcome(Resource):
     def get(self):
@@ -62,7 +62,9 @@ class Welcome(Resource):
 api.add_resource(Welcome, '/')
 api.add_resource(RandomXY, '/get_random_x_y/<int:count>')
 api.add_resource(Token, '/send_token')
+api.add_resource(UserInfo, '/info')
 api.add_resource(SignInUp, '/sign')
+api.add_resource(SignOut, '/sign_out')
 api.add_resource(RandomNames, '/get_random_names/<int:count>')
 api.add_resource(TestsServices, '/get_tests')
 api.add_resource(TestServices, '/get_test/<int:test_id>')
@@ -72,7 +74,6 @@ api.add_resource(RavenServices, '/post_raven_response')
 api.add_resource(MBTIServices, '/post_mbti_response')
 api.add_resource(HollandServices, '/post_holland_response')
 api.add_resource(JohnsonServices, '/post_johnson_response')
-# api.add_resource(TestAnswersServices, '/get_test_answers/<int:test_id>')
 
 
 if __name__ == '__main__':
