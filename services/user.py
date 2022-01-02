@@ -9,6 +9,8 @@ class UserInfo(Resource):
     def get(self):
         if current_user.is_authenticated:
             return User.query.filter_by(id=current_user.id).first().json()
+        else:
+            return {'message': 'unauthorized'}
 
 
 class SignInUp(Resource):

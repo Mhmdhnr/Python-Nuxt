@@ -10,19 +10,28 @@ class User(db.Model, UserMixin):
     email_address = db.Column(db.String(80), nullable=True)
     username = db.Column(db.String(80), nullable=True)
     password = db.Column(db.String(80), nullable=True)
+    first_name = db.Column(db.String(80), nullable=True)
+    last_name = db.Column(db.String(80), nullable=True)
 
-    def __init__(self, user_id=None, phone_number=None, user_name=None, password=None, email_address=None):
+    def __init__(self, user_id=None, phone_number=None, user_name=None, password=None, email_address=None, first_name=None, last_name=None):
         self.id = user_id
         self.phone_number = phone_number
         self.username = user_name
         self.password = password
         self.email_address = email_address
+        self.first_name = first_name
+        self.last_name = last_name
+
 
     def json(self):
-        return {'user_id': self.id,
-                'phone_number': self.phone_number,
-                'email_address': self.email_address,
-                'username': self.username}
+        return {
+            'user_id': self.id,
+            'phone_number': self.phone_number,
+            'email_address': self.email_address,
+            'username': self.username,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            }
 
     def save_to_db(self):
         db.session.add(self)
