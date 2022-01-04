@@ -15,7 +15,6 @@ class TestsServices(Resource):
 
 class TestServices(Resource):
 
-    @login_required
     def get(self, test_id):
         test = Test.get_by_id(test_id)
         return test.json()
@@ -29,6 +28,7 @@ class RavenServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = RavenServices.parser.parse_args()
         return calculate_raven_result(data['clientAnswers'])
@@ -42,6 +42,7 @@ class MBTIServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = MBTIServices.parser.parse_args()
         return calculate_mbti_result(data['clientAnswers'])
@@ -54,6 +55,7 @@ class HollandServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = HollandServices.parser.parse_args()
         return calculate_holland_result(data['clientAnswers'])
@@ -67,6 +69,7 @@ class JohnsonServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = JohnsonServices.parser.parse_args()
         return calculate_johnson_result(data['clientAnswers'])
