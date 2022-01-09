@@ -1,13 +1,15 @@
 from flask_restful import Resource, reqparse
 from models.tests import Test, Question, Choice
 from business.tests import calculate_raven_result, calculate_mbti_result, calculate_holland_result,calculate_johnson_result
+from business.user_test import get_user_test_results
 from flask_login import login_required
 
 
+class TestResults(Resource):
+    def get(self):
+        return get_user_test_results()
+
 class TestsServices(Resource):
-    # parser = reqparse.RequestParser()
-    # parser.add_argument('count', type=int, required=True,
-    #                     help='This field cannot be left blank')
 
     def get(self):
         return [test.json() for test in Test.query.all()]

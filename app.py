@@ -9,6 +9,7 @@ from services.random_x_y import RandomXY
 from services.random_names import RandomNames
 from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices, MBTIServices\
     , HollandServices, JohnsonServices
+from services.user_test import UserTestResults
 
 
 app = Flask(__name__)
@@ -23,6 +24,8 @@ app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = 'True'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a77b56c2582bddbf92d11296d4483e04c1e82dc8db210d4bddda7bf@ec2-3-214-121-14.compute-1.amazonaws.com:5432/d5ur0qqint8ced"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql+psycopg2://postgres:mhmdhnr232323@127.0.0.1:5432/my-api"
 
 
 api = Api(app)
@@ -72,6 +75,7 @@ api.add_resource(RavenServices, '/post_raven_response')
 api.add_resource(MBTIServices, '/post_mbti_response')
 api.add_resource(HollandServices, '/post_holland_response')
 api.add_resource(JohnsonServices, '/post_johnson_response')
+api.add_resource(UserTestResults, '/user_test_result')
 
 
 if __name__ == '__main__':

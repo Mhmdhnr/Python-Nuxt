@@ -1,5 +1,7 @@
 import json
-from models.tests import Choice, Question, QuestionChoices
+from flask_login import current_user
+from models.tests import Question, QuestionChoices
+from models.user_test_results import UserTestResults, UserRavenResults, UserMBTIResults, UserHollandResults, UserJohnsonResults
 import math
 
 
@@ -92,6 +94,21 @@ def calculate_raven_result(response):
     elif age == 9:
         iq = result_9[-1] if correct_count == 0 else result_9[-correct_count]
 
+    user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    if user_results:
+        if user_results.raven:
+            user_raven_results = UserRavenResults.query.filter_by(user_id=current_user.id).first()
+            user_raven_results.correct_count = correct_count
+            user_raven_results.iq = iq
+            user_raven_results.save_to_db()
+        else:
+            user_results.raven = True
+            user_results.save_to_db()
+            user_raven_results = UserRavenResults(current_user.id, age, correct_count, iq)
+            user_raven_results.save_to_db()
+    else:
+        pass
+
     return {
         'age': age,
         'iq': iq,
@@ -111,12 +128,6 @@ def calculate_mbti_result(response):
     sn_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
     tf_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
     jp_questions = [test_question for test_question in test_questions if test_question.indicator == 4]
-
-    # ei_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in ei_questions)]
-    # sn_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in sn_questions)]
-    # tf_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in tf_questions)]
-    # jp_choices = [test_choice for test_choice in test_choices if test_choice.question_id in (question.id for question in jp_questions)]
-    # total_e_points = sum(1 for choice in ei_choices if choice.points == 0)
 
     client_e_point = 0
     client_i_point = 0
@@ -181,10 +192,31 @@ def calculate_mbti_result(response):
     client_type = client_type + "T" if client_tf == "T" else client_type + "F"
     client_type = client_type + "J" if client_jp == "J" else client_type + "P"
 
-    print(len(ei_questions))
-    print(client_e_point)
-    print(client_i_point)
-    print(len(ei_questions) + len(sn_questions) + len(tf_questions) + len(jp_questions) + 6)
+    user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    if user_results:
+        if user_results.mbti:
+            user_mbti_results = UserMBTIResults.query.filter_by(user_id=current_user.id).first()
+            user_mbti_results.type = client_type
+            user_mbti_results.ei = client_ei
+            user_mbti_results.ei_value = math.floor(client_ei_value)
+            user_mbti_results.sn = client_sn
+            user_mbti_results.sn_value = math.floor(client_sn_value)
+            user_mbti_results.tf = client_tf
+            user_mbti_results.tf_value = math.floor(client_tf_value)
+            user_mbti_results.jp = client_jp
+            user_mbti_results.jp_value = math.floor(client_jp_value)
+            user_mbti_results.save_to_db()
+        else:
+            user_results.mbti = True
+            user_results.save_to_db()
+
+            user_mbti_results = UserMBTIResults(current_user.id, client_type, client_ei, math.floor(client_ei_value),
+                                                 client_sn, math.floor(client_sn_value), client_tf,
+                                                 math.floor(client_tf_value), client_jp, math.floor(client_jp_value))
+            user_mbti_results.save_to_db()
+    else:
+        pass
+
     return {
         'type': client_type,
         'EI': {
@@ -255,13 +287,40 @@ def calculate_holland_result(response):
                 selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
                 client_c_points += selected_choice.points
 
+    user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    if user_results:
+        if user_results.holland:
+            user_holland_results = UserHollandResults.query.filter_by(user_id=current_user.id).first()
+            user_holland_results.realistic = math.floor(client_r_points / 40 * 100)
+            user_holland_results.investigative = math.floor(client_i_points / 40 * 100)
+            user_holland_results.artistic = math.floor(client_a_points / 40 * 100)
+            user_holland_results.social = math.floor(client_s_points / 40 * 100)
+            user_holland_results.enterprising = math.floor(client_e_points / 40 * 100)
+            user_holland_results.conventional = math.floor(client_c_points / 40 * 100)
+            user_holland_results.save_to_db()
+        else:
+            user_results.holland = True
+            user_results.save_to_db()
+
+            user_holland_results = UserHollandResults(current_user.id,
+                                                      math.floor(client_r_points / 40 * 100),
+                                                      math.floor(client_i_points / 40 * 100),
+                                                      math.floor(client_a_points / 40 * 100),
+                                                      math.floor(client_s_points / 40 * 100),
+                                                      math.floor(client_e_points / 40 * 100),
+                                                      math.floor(client_c_points / 40 * 100)
+                                                      )
+            user_holland_results.save_to_db()
+    else:
+        pass
+
     return {
-        "R": client_r_points,
-        "I": client_i_points,
-        "A": client_a_points,
-        "S": client_s_points,
-        "E": client_e_points,
-        "C": client_c_points,
+        "R": math.floor(client_r_points / 40 * 100),
+        "I": math.floor(client_i_points / 40 * 100),
+        "A": math.floor(client_a_points / 40 * 100),
+        "S": math.floor(client_s_points / 40 * 100),
+        "E": math.floor(client_e_points / 40 * 100),
+        "C": math.floor(client_c_points / 40 * 100),
     }
 
 
@@ -351,19 +410,58 @@ def calculate_johnson_result(response):
                 selected_choice = next(question_choice for question_choice in question_choices if question_choice.index == client_response)
                 aptitude_12_points += selected_choice.points
 
+    user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    if user_results:
+        if user_results.johnson:
+            user_johnson_results = UserJohnsonResults.query.filter_by(user_id=current_user.id).first()
+            user_johnson_results.aptitude_1 = math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
+            user_johnson_results.aptitude_2 = math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
+            user_johnson_results.aptitude_3 = math.floor(aptitude_3_points / len(aptitude_3_questions) * 100),
+            user_johnson_results.aptitude_4 = math.floor(aptitude_4_points / len(aptitude_4_questions) * 100),
+            user_johnson_results.aptitude_5 = math.floor(aptitude_5_points / len(aptitude_5_questions) * 100),
+            user_johnson_results.aptitude_6 = math.floor(aptitude_6_points / len(aptitude_6_questions) * 100),
+            user_johnson_results.aptitude_7 = math.floor(aptitude_7_points / len(aptitude_7_questions) * 100),
+            user_johnson_results.aptitude_8 = math.floor(aptitude_8_points / len(aptitude_8_questions) * 100),
+            user_johnson_results.aptitude_9 = math.floor(aptitude_9_points / len(aptitude_9_questions) * 100),
+            user_johnson_results.aptitude_10 = math.floor(aptitude_10_points / len(aptitude_10_questions) * 100),
+            user_johnson_results.aptitude_11 = math.floor(aptitude_11_points / len(aptitude_11_questions) * 100),
+            user_johnson_results.aptitude_12 = math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
+            user_johnson_results.save_to_db()
+        else:
+            user_results.johnson = True
+            user_results.save_to_db()
+
+            user_johnson_results = UserJohnsonResults(current_user.id,
+                                                      math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
+                                                      math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
+                                                      math.floor(aptitude_3_points / len(aptitude_3_questions) * 100),
+                                                      math.floor(aptitude_4_points / len(aptitude_4_questions) * 100),
+                                                      math.floor(aptitude_5_points / len(aptitude_5_questions) * 100),
+                                                      math.floor(aptitude_6_points / len(aptitude_6_questions) * 100),
+                                                      math.floor(aptitude_7_points / len(aptitude_7_questions) * 100),
+                                                      math.floor(aptitude_8_points / len(aptitude_8_questions) * 100),
+                                                      math.floor(aptitude_9_points / len(aptitude_9_questions) * 100),
+                                                      math.floor(aptitude_10_points / len(aptitude_10_questions) * 100),
+                                                      math.floor(aptitude_11_points / len(aptitude_11_questions) * 100),
+                                                      math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
+                                                      )
+            user_johnson_results.save_to_db()
+    else:
+        pass
+
     return {
-        'aptitude1': math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
-        'aptitude2': math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
-        'aptitude3': math.floor(aptitude_3_points / len(aptitude_3_questions) * 100),
-        'aptitude4': math.floor(aptitude_4_points / len(aptitude_4_questions) * 100),
-        'aptitude5': math.floor(aptitude_5_points / len(aptitude_5_questions) * 100),
-        'aptitude6': math.floor(aptitude_6_points / len(aptitude_6_questions) * 100),
-        'aptitude7': math.floor(aptitude_7_points / len(aptitude_7_questions) * 100),
-        'aptitude8': math.floor(aptitude_8_points / len(aptitude_8_questions) * 100),
-        'aptitude9': math.floor(aptitude_9_points / len(aptitude_9_questions) * 100),
-        'aptitude10': math.floor(aptitude_10_points / len(aptitude_10_questions) * 100),
-        'aptitude11': math.floor(aptitude_11_points / len(aptitude_11_questions) * 100),
-        'aptitude12': math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
+        'aptitude_1': math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
+        'aptitude_2': math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
+        'aptitude_3': math.floor(aptitude_3_points / len(aptitude_3_questions) * 100),
+        'aptitude_4': math.floor(aptitude_4_points / len(aptitude_4_questions) * 100),
+        'aptitude_5': math.floor(aptitude_5_points / len(aptitude_5_questions) * 100),
+        'aptitude_6': math.floor(aptitude_6_points / len(aptitude_6_questions) * 100),
+        'aptitude_7': math.floor(aptitude_7_points / len(aptitude_7_questions) * 100),
+        'aptitude_8': math.floor(aptitude_8_points / len(aptitude_8_questions) * 100),
+        'aptitude_9': math.floor(aptitude_9_points / len(aptitude_9_questions) * 100),
+        'aptitude_10': math.floor(aptitude_10_points / len(aptitude_10_questions) * 100),
+        'aptitude_11': math.floor(aptitude_11_points / len(aptitude_11_questions) * 100),
+        'aptitude_12': math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
     }
 
 
