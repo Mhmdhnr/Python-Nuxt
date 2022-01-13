@@ -8,15 +8,15 @@ from services.user import SignInUp, Token, SignOut, UserInfo
 from services.random_x_y import RandomXY
 from services.random_names import RandomNames
 from services.tests import TestsServices, QuestionsServices, ChoicesServices, TestServices, RavenServices, MBTIServices\
-    , HollandServices, JohnsonServices
+    , HollandServices, JohnsonServices, GlasserServices
 from services.user_test import UserTestResults
 
 
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    # SERVER_NAME='127.0.0.1:5000',
+    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -75,6 +75,7 @@ api.add_resource(RavenServices, '/post_raven_response')
 api.add_resource(MBTIServices, '/post_mbti_response')
 api.add_resource(HollandServices, '/post_holland_response')
 api.add_resource(JohnsonServices, '/post_johnson_response')
+api.add_resource(GlasserServices, '/post_glasser_response')
 api.add_resource(UserTestResults, '/user_test_result')
 
 

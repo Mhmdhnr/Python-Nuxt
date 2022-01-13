@@ -10,6 +10,7 @@ class UserTestResults(db.Model):
     mbti = db.Column(db.Boolean)
     johnson = db.Column(db.Boolean)
     holland = db.Column(db.Boolean)
+    glasser = db.Column(db.Boolean)
 
     def __init__(self, user_id):
         self.user_id = user_id
@@ -17,6 +18,7 @@ class UserTestResults(db.Model):
         self.mbti = False
         self.johnson = False
         self.holland = False
+        self.glasser = False
 
     def json(self):
         return {
@@ -25,6 +27,7 @@ class UserTestResults(db.Model):
             'mbti': self.mbti,
             'johnson': self.johnson,
             'holland': self.holland,
+            'glasser': self.glasser,
             }
 
     def save_to_db(self):
@@ -215,6 +218,44 @@ class UserJohnsonResults(db.Model):
             'aptitude_10': self.aptitude_10,
             'aptitude_11': self.aptitude_11,
             'aptitude_12': self.aptitude_12,
+        }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class UserGlasserResults(db.Model):
+    __tablename__ = 'UserGlasserResults'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    need_1 = db.Column(db.Integer, nullable=False)
+    need_2 = db.Column(db.Integer, nullable=False)
+    need_3 = db.Column(db.Integer, nullable=False)
+    need_4 = db.Column(db.Integer, nullable=False)
+    need_5 = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, user_id, need_1, need_2, need_3, need_4, need_5):
+        self.user_id = user_id
+        self.need_1 = need_1
+        self.need_2 = need_2
+        self.need_3 = need_3
+        self.need_4 = need_4
+        self.need_5 = need_5
+
+    def json(self):
+        return {
+            'user_id': self.user_id,
+            'need_1': self.need_1,
+            'need_2': self.need_2,
+            'need_3': self.need_3,
+            'need_4': self.need_4,
+            'need_5': self.need_5,
         }
 
     def save_to_db(self):
