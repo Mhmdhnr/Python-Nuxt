@@ -8,6 +8,7 @@ class Test(db.Model):
     name_fa = db.Column(db.String(80))
     name_en = db.Column(db.String(80), nullable=True)
     time = db.Column(db.Integer)
+    sections = db.relationship('Section', lazy='dynamic')
     questions = db.relationship('Question', lazy='dynamic')
 
     def __init__(self, name_fa, time):
@@ -15,23 +16,53 @@ class Test(db.Model):
         self.time = time
 
     def json(self):
+        sections = []
+        for section in self.sections:
+            sections.append(section)
+        sections.sort(key=lambda x: x.index)
         questions = []
         for question in self.questions:
             questions.append(question)
         questions.sort(key=lambda x: x.index)
-
 
         return {
             'id': self.id,
             'name_fa': self.name_fa,
             'name_en': self.name_en,
             'time': self.time,
-            'questions': [question.json() for question in questions],
+            'sections': [section.json() for section in sections],
+            # 'questions': [question.json() for question in questions],
         }
 
     @classmethod
     def get_by_id(cls, test_id):
         return cls.query.filter_by(id=test_id).first()
+
+
+class Section(db.Model):
+    __tablename__ = 'Sections'
+
+    id = db.Column(db.Integer, primary_key=True)
+    index = db.Column(db.Integer, nullable=False)
+    test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
+    description = db.Column(db.String(200), nullable=True)
+    questions = db.relationship('Question', lazy='dynamic')
+
+    def __init__(self, index, test_id):
+        self.index = index
+        self.test_id = test_id
+
+    def json(self):
+        questions = []
+        for question in self.questions:
+            questions.append(question)
+        questions.sort(key=lambda x: x.index)
+        return {
+            'id': self.id,
+            'index': self.index,
+            'test': self.test_id,
+            'questions': [question.json() for question in questions],
+        }
 
 
 class Question(db.Model):
@@ -46,7 +77,7 @@ class Question(db.Model):
 
     question_choices = db.relationship('QuestionChoices', lazy='dynamic')
     test_id = db.Column(db.Integer, db.ForeignKey('Tests.id'))
-    # test = db.relationship('Test')
+    section_id = db.Column(db.Integer, db.ForeignKey('Sections.id'))
 
     def __init__(self, question_fa, index, test_id, indicator):
         self.question_fa = question_fa
