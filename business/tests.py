@@ -613,7 +613,7 @@ def calculate_stephen_result(response):
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
     if user_results:
         if user_results.stephen:
-            user_stephen_results = UserGlasserResults.query.filter_by(user_id=current_user.id).first()
+            user_stephen_results = UserStephenResults.query.filter_by(user_id=current_user.id).first()
             user_stephen_results.dependent = math.floor(dependent_points / dependent_total_points * 100),
             user_stephen_results.independent = math.floor(independent_points / independent_total_points * 100),
             user_stephen_results.interdependent = math.floor(interdependent_points / interdependent_total_points * 100),
