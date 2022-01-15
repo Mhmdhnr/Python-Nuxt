@@ -1,7 +1,7 @@
 import json
 from flask_login import current_user
 from models.tests import Question, QuestionChoices, Section
-from models.user_test_results import UserTestResults, UserRavenResults, UserMBTIResults, UserHollandResults, UserJohnsonResults, UserGlasserResults
+from models.user_test_results import UserTestResults, UserRavenResults, UserMBTIResults, UserHollandResults, UserJohnsonResults, UserGlasserResults, UserStephenResults
 import math
 
 
@@ -567,6 +567,74 @@ def calculate_glasser_result(response):
         'need_3_from_100': math.floor(need_3_points / need_3_total_points * 100),
         'need_4_from_100': math.floor(need_4_points / need_4_total_points * 100),
         'need_5_from_100': math.floor(need_5_points / need_5_total_points * 100),
+    }
+
+
+def calculate_stephen_result(response):
+    choices = json.loads(response).get('choices')
+    print(choices)
+    test_sections = Section.query.filter_by(test_id=6).all()
+    test_questions = []
+    for section in test_sections:
+        section_questions = Question.query.filter_by(section_id=section.id).all()
+        for section_question in section_questions:
+            test_questions.append(section_question)
+
+    test_questions_id = []
+    for test_question in test_questions:
+        test_questions_id.append(test_question.id)
+    test_choices = QuestionChoices.query.filter(QuestionChoices.question_id.in_(test_questions_id)).all()
+
+    dependent_questions = [test_question for test_question in test_questions if test_question.indicator == 1]
+    independent_questions = [test_question for test_question in test_questions if test_question.indicator == 2]
+    interdependent_questions = [test_question for test_question in test_questions if test_question.indicator == 3]
+
+    dependent_total_points = len(dependent_questions) * 5
+    independent_total_points = len(independent_questions) * 5
+    interdependent_total_points = len(interdependent_questions) * 5
+
+    dependent_points = 0
+    independent_points = 0
+    interdependent_points = 0
+    for test_question in test_questions:
+        if test_question.indicator == 1:
+            question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == test_question.id]
+            choice_index = next(choice['choice'] for choice in choices if choice['questionId'] == test_question.id)
+            dependent_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
+        if test_question.indicator == 2:
+            question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == test_question.id]
+            choice_index = next(choice['choice'] for choice in choices if choice['questionId'] == test_question.id)
+            independent_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
+        if test_question.indicator == 3:
+            question_choices = [test_choice for test_choice in test_choices if test_choice.question_id == test_question.id]
+            choice_index = next(choice['choice'] for choice in choices if choice['questionId'] == test_question.id)
+            interdependent_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
+
+    user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    if user_results:
+        if user_results.stephen:
+            user_stephen_results = UserGlasserResults.query.filter_by(user_id=current_user.id).first()
+            user_stephen_results.dependent = math.floor(dependent_points / dependent_total_points * 100),
+            user_stephen_results.independent = math.floor(independent_points / independent_total_points * 100),
+            user_stephen_results.interdependent = math.floor(interdependent_points / interdependent_total_points * 100),
+            user_stephen_results.save_to_db()
+        else:
+            user_results.stephen = True
+            user_results.save_to_db()
+
+            user_stephen_results = UserStephenResults(current_user.id,
+                                                      math.floor(dependent_points / dependent_total_points * 100),
+                                                      math.floor(independent_points / independent_total_points * 100),
+                                                      math.floor(interdependent_points / interdependent_total_points * 100),
+                                                      )
+            user_stephen_results.save_to_db()
+    else:
+        pass
+
+    return {
+        'dependent_from_100': math.floor(dependent_points / dependent_total_points * 100),
+        'independent_from_100': math.floor(independent_points / independent_total_points * 100),
+        'interdependent_from_100': math.floor(interdependent_points / interdependent_total_points * 100),
     }
 
 

@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 from models.tests import Test, Question, Choice
 from business.tests import calculate_raven_result, calculate_mbti_result, calculate_holland_result,\
-    calculate_johnson_result, calculate_glasser_result
+    calculate_johnson_result, calculate_glasser_result, calculate_stephen_result
 from business.user_test import get_user_test_results
 from flask_login import login_required
 
@@ -89,6 +89,19 @@ class GlasserServices(Resource):
     def post(self):
         data = GlasserServices.parser.parse_args()
         return calculate_glasser_result(data['clientAnswers'])
+
+
+class StephenServices(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('clientAnswers', type=str, required=True,
+                        help='This field cannot be left blank')
+
+    def __init__(self):
+        return
+
+    def post(self):
+        data = StephenServices.parser.parse_args()
+        return calculate_stephen_result(data['clientAnswers'])
 
 
 class QuestionsServices(Resource):

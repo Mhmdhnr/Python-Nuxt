@@ -11,6 +11,7 @@ class UserTestResults(db.Model):
     johnson = db.Column(db.Boolean)
     holland = db.Column(db.Boolean)
     glasser = db.Column(db.Boolean)
+    stephen = db.Column(db.Boolean)
 
     def __init__(self, user_id):
         self.user_id = user_id
@@ -19,6 +20,7 @@ class UserTestResults(db.Model):
         self.johnson = False
         self.holland = False
         self.glasser = False
+        self.stephen = False
 
     def json(self):
         return {
@@ -28,6 +30,7 @@ class UserTestResults(db.Model):
             'johnson': self.johnson,
             'holland': self.holland,
             'glasser': self.glasser,
+            'stephen': self.glasser,
             }
 
     def save_to_db(self):
@@ -256,6 +259,38 @@ class UserGlasserResults(db.Model):
             'need_3': self.need_3,
             'need_4': self.need_4,
             'need_5': self.need_5,
+        }
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete_from_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+class UserStephenResults(db.Model):
+    __tablename__ = 'UserStephenResults'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Users.id'))
+    dependent = db.Column(db.Integer, nullable=False)
+    independent = db.Column(db.Integer, nullable=False)
+    interdependent = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, user_id, dependent, independent, interdependent):
+        self.user_id = user_id
+        self.dependent = dependent
+        self.independent = independent
+        self.interdependent = interdependent
+
+    def json(self):
+        return {
+            'user_id': self.user_id,
+            'dependent': self.dependent,
+            'independent': self.independent,
+            'interdependent': self.interdependent,
         }
 
     def save_to_db(self):
