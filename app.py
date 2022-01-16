@@ -15,8 +15,8 @@ from services.user_test import UserTestResults
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    # SERVER_NAME='127.0.0.1:5000',
+    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -29,7 +29,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 
 
 api = Api(app)
-CORS(app, resources={r"/*": {"origins": "https://mhmdhnr-nuxt.herokuapp.com"}}, supports_credentials=True,)
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True,)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
