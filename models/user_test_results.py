@@ -30,7 +30,7 @@ class UserTestResults(db.Model):
             'johnson': self.johnson,
             'holland': self.holland,
             'glasser': self.glasser,
-            'stephen': self.glasser,
+            'stephen': self.stephen,
             }
 
     def save_to_db(self):
