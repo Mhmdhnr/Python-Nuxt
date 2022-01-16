@@ -18,8 +18,6 @@ def sign_in_up(phone_number=None, token=None, username=None, password=None):
                 return {'message': "Successfully signed in"}
             else:
                 new_user = User(phone_number)
-                new_user_test_result = UserTestResults(current_user.id)
-                new_user_test_result.save_to_db()
                 new_user.save_to_db()
                 login_user(user)
                 return {'message': "Successfully signed up"}
