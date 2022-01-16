@@ -29,7 +29,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://lxdcspgcawenix:795dce1c1a7
 
 
 api = Api(app)
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True,)
+CORS(app, resources={r"/*": {"origins": "https://mhmdhnr-nuxt.herokuapp.com"}}, supports_credentials=True,)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
