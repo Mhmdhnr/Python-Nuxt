@@ -15,8 +15,8 @@ from services.user_test import UserTestResults
 app = Flask(__name__)
 app.config.update(
     DEBUG=True,
-    # SERVER_NAME='flask-restful-nuxt.herokuapp.com',
-    SERVER_NAME='127.0.0.1:5000',
+    SERVER_NAME='flask-restful-nuxt.herokuapp.com',
+    # SERVER_NAME='127.0.0.1:5000',
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
