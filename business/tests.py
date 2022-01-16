@@ -94,15 +94,15 @@ def calculate_raven_result(response):
         iq = result_9[-1] if correct_count == 0 else result_9[-correct_count]
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.raven = True
+    user_results.save_to_db()
     if user_results:
-        if user_results.raven:
+        if UserRavenResults.query.filter_by(user_id=current_user.id).first():
             user_raven_results = UserRavenResults.query.filter_by(user_id=current_user.id).first()
             user_raven_results.correct_count = correct_count
             user_raven_results.iq = iq
             user_raven_results.save_to_db()
         else:
-            user_results.raven = True
-            user_results.save_to_db()
             user_raven_results = UserRavenResults(current_user.id, age, correct_count, iq)
             user_raven_results.save_to_db()
     else:
@@ -201,8 +201,11 @@ def calculate_mbti_result(response):
     client_type = client_type + "J" if client_jp == "J" else client_type + "P"
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.mbti = True
+    user_results.save_to_db()
+
     if user_results:
-        if user_results.mbti:
+        if UserMBTIResults.query.filter_by(user_id=current_user.id).first():
             user_mbti_results = UserMBTIResults.query.filter_by(user_id=current_user.id).first()
             user_mbti_results.type = client_type
             user_mbti_results.ei = client_ei
@@ -215,9 +218,6 @@ def calculate_mbti_result(response):
             user_mbti_results.jp_value = math.floor(client_jp_value)
             user_mbti_results.save_to_db()
         else:
-            user_results.mbti = True
-            user_results.save_to_db()
-
             user_mbti_results = UserMBTIResults(current_user.id, client_type, client_ei, math.floor(client_ei_value),
                                                  client_sn, math.floor(client_sn_value), client_tf,
                                                  math.floor(client_tf_value), client_jp, math.floor(client_jp_value))
@@ -301,8 +301,10 @@ def calculate_holland_result(response):
             client_c_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.holland = True
+    user_results.save_to_db()
     if user_results:
-        if user_results.holland:
+        if UserHollandResults.query.filter_by(user_id=current_user.id).first():
             user_holland_results = UserHollandResults.query.filter_by(user_id=current_user.id).first()
             user_holland_results.realistic = math.floor(client_r_points / 40 * 100)
             user_holland_results.investigative = math.floor(client_i_points / 40 * 100)
@@ -312,9 +314,6 @@ def calculate_holland_result(response):
             user_holland_results.conventional = math.floor(client_c_points / 40 * 100)
             user_holland_results.save_to_db()
         else:
-            user_results.holland = True
-            user_results.save_to_db()
-
             user_holland_results = UserHollandResults(current_user.id,
                                                       math.floor(client_r_points / 40 * 100),
                                                       math.floor(client_i_points / 40 * 100),
@@ -428,8 +427,10 @@ def calculate_johnson_result(response):
             aptitude_12_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.johnson = True
+    user_results.save_to_db()
     if user_results:
-        if user_results.johnson:
+        if UserJohnsonResults.query.filter_by(user_id=current_user.id).first():
             user_johnson_results = UserJohnsonResults.query.filter_by(user_id=current_user.id).first()
             user_johnson_results.aptitude_1 = math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
             user_johnson_results.aptitude_2 = math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
@@ -445,9 +446,6 @@ def calculate_johnson_result(response):
             user_johnson_results.aptitude_12 = math.floor(aptitude_12_points / len(aptitude_12_questions) * 100),
             user_johnson_results.save_to_db()
         else:
-            user_results.johnson = True
-            user_results.save_to_db()
-
             user_johnson_results = UserJohnsonResults(current_user.id,
                                                       math.floor(aptitude_1_points / len(aptitude_1_questions) * 100),
                                                       math.floor(aptitude_2_points / len(aptitude_2_questions) * 100),
@@ -537,8 +535,10 @@ def calculate_glasser_result(response):
             need_5_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.glasser = True
+    user_results.save_to_db()
     if user_results:
-        if user_results.glasser:
+        if UserGlasserResults.query.filter_by(user_id=current_user.id).first():
             user_glasser_results = UserGlasserResults.query.filter_by(user_id=current_user.id).first()
             user_glasser_results.need_1 = math.floor(need_1_points / need_1_total_points * 100),
             user_glasser_results.need_2 = math.floor(need_2_points / need_2_total_points * 100),
@@ -547,9 +547,6 @@ def calculate_glasser_result(response):
             user_glasser_results.need_5 = math.floor(need_5_points / need_5_total_points * 100),
             user_glasser_results.save_to_db()
         else:
-            user_results.glasser = True
-            user_results.save_to_db()
-
             user_glasser_results = UserGlasserResults(current_user.id,
                                                       math.floor(need_1_points / need_1_total_points * 100),
                                                       math.floor(need_2_points / need_2_total_points * 100),
