@@ -31,7 +31,7 @@ class RavenServices(Resource):
     def __init__(self):
         return
 
-    # @login_required
+    @login_required
     def post(self):
         data = RavenServices.parser.parse_args()
         return calculate_raven_result(data['clientAnswers'])
@@ -45,7 +45,7 @@ class MBTIServices(Resource):
     def __init__(self):
         return
 
-    # @login_required
+    @login_required
     def post(self):
         data = MBTIServices.parser.parse_args()
         return calculate_mbti_result(data['clientAnswers'])
@@ -58,7 +58,7 @@ class HollandServices(Resource):
     def __init__(self):
         return
 
-    # @login_required
+    @login_required
     def post(self):
         data = HollandServices.parser.parse_args()
         return calculate_holland_result(data['clientAnswers'])
@@ -72,7 +72,7 @@ class JohnsonServices(Resource):
     def __init__(self):
         return
 
-    # @login_required
+    @login_required
     def post(self):
         data = JohnsonServices.parser.parse_args()
         return calculate_johnson_result(data['clientAnswers'])
@@ -86,6 +86,7 @@ class GlasserServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = GlasserServices.parser.parse_args()
         return calculate_glasser_result(data['clientAnswers'])
@@ -99,6 +100,7 @@ class StephenServices(Resource):
     def __init__(self):
         return
 
+    @login_required
     def post(self):
         data = StephenServices.parser.parse_args()
         return calculate_stephen_result(data['clientAnswers'])
