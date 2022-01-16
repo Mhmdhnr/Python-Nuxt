@@ -24,7 +24,7 @@ class UserTestResults(db.Model):
 
     def json(self):
         return {
-            'user_id': self.id,
+            'user_id': self.user_id,
             'raven': self.raven,
             'mbti': self.mbti,
             'johnson': self.johnson,
