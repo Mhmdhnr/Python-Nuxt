@@ -7,8 +7,8 @@ def get_user_test_results():
     if user_test_results:
         pass
     else:
-        new_user_test_result = UserTestResults(current_user.id)
-        new_user_test_result.save_to_db()
+        user_test_results = UserTestResults(current_user.id)
+        user_test_results.save_to_db()
     if UserRavenResults.query.filter_by(user_id=current_user.id).first():
         user_raven_results = UserRavenResults.query.filter_by(user_id=current_user.id).first()
     else:

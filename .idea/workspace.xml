@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea8aa147-9e84-46ed-8c27-b00573c3279d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/business/tests.py" afterDir="false" />
-    </list>
+    <list default="true" id="ea8aa147-9e84-46ed-8c27-b00573c3279d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/business/user_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="11" column="73" lean-forward="true" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
+            <state relative-caret-position="170">
+              <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -64,8 +61,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/models/user_test_results.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2268">
-              <caret line="272" column="35" selection-start-line="272" selection-start-column="35" selection-end-line="272" selection-end-column="35" />
+            <state relative-caret-position="183">
+              <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -82,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/business/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="618" column="21" selection-start-line="615" selection-start-column="17" selection-end-line="618" selection-end-column="21" />
+            <state relative-caret-position="568">
+              <caret line="628" column="45" selection-start-line="628" selection-start-column="45" selection-end-line="628" selection-end-column="45" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -273,13 +270,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1634755949563</updated>
-    </task>
-    <task id="LOCAL-00029" summary="mbti result">
-      <created>1637704812693</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1637704812693</updated>
     </task>
     <task id="LOCAL-00030" summary="mbti result">
       <created>1637704938357</created>
@@ -617,7 +607,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642348431673</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="section ref dep">
+      <created>1642348807419</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1642348807419</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -854,13 +851,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/user_test_results.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2268">
-          <caret line="272" column="35" selection-start-line="272" selection-start-column="35" selection-end-line="272" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -881,22 +871,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/business/user_test.py">
+    <entry file="file://$PROJECT_DIR$/business/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="11" column="73" lean-forward="true" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
+        <state relative-caret-position="568">
+          <caret line="628" column="45" selection-start-line="628" selection-start-column="45" selection-end-line="628" selection-end-column="45" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/business/tests.py">
+    <entry file="file://$PROJECT_DIR$/models/user_test_results.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="618" column="21" selection-start-line="615" selection-start-column="17" selection-end-line="618" selection-end-column="21" />
+        <state relative-caret-position="183">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/business/user_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
