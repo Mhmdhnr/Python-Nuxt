@@ -38,7 +38,7 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', 'https://mhmdhnr-nuxt.herokuapp.com')
     # response.headers.add('Accept', 'application/json')
     response.headers.add('Access-Control-Allow-Headers', 'https://mhmdhnr-nuxt.herokuapp.com')
-    response.headers.add('Access-Control-Allow-Headers', 'application/json')
+    # response.headers.add('Access-Control-Allow-Headers', 'application/json')
     # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
