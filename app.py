@@ -20,7 +20,7 @@ app.config.update(
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
-app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+# app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = 'True'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
