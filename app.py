@@ -36,8 +36,8 @@ login_manager.init_app(app)
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', 'https://mhmdhnr-nuxt.herokuapp.com')
-    response.headers.add('Accept', 'application/json')
-    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Methods,Access-Control-Allow-Origin,access-control-allow-credentials,Access-Control-Allow-Headers')
+    # response.headers.add('Accept', 'application/json')
+    response.headers.add('Access-Control-Allow-Headers', 'application/json')
     # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     response.headers.add('Access-Control-Allow-Credentials', 'true')
     return response
