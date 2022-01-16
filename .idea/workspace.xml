@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="ea8aa147-9e84-46ed-8c27-b00573c3279d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/business/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/business/user_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/business/user_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/business/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/business/tests.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/business/user_test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+            <state relative-caret-position="85">
+              <caret line="11" column="73" lean-forward="true" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -84,11 +82,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/business/tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9027">
-              <caret line="612" column="83" lean-forward="true" selection-start-line="612" selection-start-column="83" selection-end-line="612" selection-end-column="83" />
+            <state relative-caret-position="167">
+              <caret line="618" column="21" selection-start-line="615" selection-start-column="17" selection-end-line="618" selection-end-column="21" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -168,11 +166,11 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/models/tests.py" />
         <option value="$PROJECT_DIR$/models/user_test_results.py" />
-        <option value="$PROJECT_DIR$/business/tests.py" />
         <option value="$PROJECT_DIR$/services/tests.py" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/business/user.py" />
         <option value="$PROJECT_DIR$/business/user_test.py" />
+        <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/business/tests.py" />
       </list>
     </option>
   </component>
@@ -275,27 +273,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1634755949563</updated>
-    </task>
-    <task id="LOCAL-00026" summary="database refactor">
-      <created>1637411177107</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1637411177107</updated>
-    </task>
-    <task id="LOCAL-00027" summary="database refactor">
-      <created>1637411195604</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1637411195604</updated>
-    </task>
-    <task id="LOCAL-00028" summary="database refactor">
-      <created>1637411246030</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1637411246030</updated>
     </task>
     <task id="LOCAL-00029" summary="mbti result">
       <created>1637704812693</created>
@@ -619,11 +596,33 @@
       <option name="project" value="LOCAL" />
       <updated>1642344345728</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="section ref dep">
+      <created>1642346776902</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1642346776902</updated>
+    </task>
+    <task id="LOCAL-00076" summary="section ref dep">
+      <created>1642346809630</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1642346809630</updated>
+    </task>
+    <task id="LOCAL-00077" summary="section ref dep">
+      <created>1642348431673</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1642348431673</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1028" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49832776" visible="true" weight="0.12961012" />
       <window_info id="Structure" order="1" sideWeight="0.50167227" side_tool="true" weight="0.105374075" />
@@ -635,8 +634,8 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32960895" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.49894625" visible="true" weight="0.25139666" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49894625" weight="0.33072627" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49894625" weight="0.25139666" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.49894625" visible="true" weight="0.33072627" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50105375" side_tool="true" weight="0.33072627" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32849163" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -845,16 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/user.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -865,12 +854,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/business/tests.py">
+    <entry file="file://$PROJECT_DIR$/models/user_test_results.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9027">
-          <caret line="612" column="83" lean-forward="true" selection-start-line="612" selection-start-column="83" selection-end-line="612" selection-end-column="83" />
+        <state relative-caret-position="2268">
+          <caret line="272" column="35" selection-start-line="272" selection-start-column="35" selection-end-line="272" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -885,19 +881,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/user_test_results.py">
+    <entry file="file://$PROJECT_DIR$/business/user_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2268">
-          <caret line="272" column="35" selection-start-line="272" selection-start-column="35" selection-end-line="272" selection-end-column="35" />
+        <state relative-caret-position="85">
+          <caret line="11" column="73" lean-forward="true" selection-start-line="11" selection-start-column="73" selection-end-line="11" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/business/user_test.py">
+    <entry file="file://$PROJECT_DIR$/business/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        <state relative-caret-position="167">
+          <caret line="618" column="21" selection-start-line="615" selection-start-column="17" selection-end-line="618" selection-end-column="21" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

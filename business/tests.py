@@ -611,6 +611,8 @@ def calculate_stephen_result(response):
             interdependent_points += next(question_choice for question_choice in question_choices if question_choice.index == choice_index).points
 
     user_results = UserTestResults.query.filter_by(user_id=current_user.id).first()
+    user_results.stephen = True
+    user_results.save_to_db()
     if user_results:
         if UserStephenResults.query.filter_by(user_id=current_user.id).first():
             user_stephen_results = UserStephenResults.query.filter_by(user_id=current_user.id).first()
@@ -619,9 +621,6 @@ def calculate_stephen_result(response):
             user_stephen_results.interdependent = math.floor(interdependent_points / interdependent_total_points * 100),
             user_stephen_results.save_to_db()
         else:
-            user_results.stephen = True
-            user_results.save_to_db()
-
             user_stephen_results = UserStephenResults(current_user.id,
                                                       math.floor(dependent_points / dependent_total_points * 100),
                                                       math.floor(independent_points / independent_total_points * 100),
