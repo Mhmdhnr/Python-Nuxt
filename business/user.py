@@ -1,5 +1,4 @@
 from models.user import User, Token
-from models.user_test_results import UserTestResults
 from business.otp import send_verification_token
 from datetime import datetime
 from flask_login import login_user, logout_user, current_user
@@ -19,6 +18,7 @@ def sign_in_up(phone_number=None, token=None, username=None, password=None):
             else:
                 new_user = User(phone_number)
                 new_user.save_to_db()
+                user = User.query.filter_by(phone_number=phone_number).first()
                 login_user(user)
                 return {'message': "Successfully signed up"}
         elif db_token.token != token and db_token.expiration_date_time > datetime.now():
