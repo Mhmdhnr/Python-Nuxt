@@ -20,7 +20,7 @@ app.config.update(
     SECRET_KEY='secret_xxx'
 )
 app.config['CORS_HEADERS'] = 'Content-Type'
-# app.config['SESSION_COOKIE_SAMESITE'] = 'None'
+app.config['SESSION_COOKIE_SAMESITE'] = 'None'
 app.config['SESSION_COOKIE_SECURE'] = 'True'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -33,14 +33,14 @@ CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True,)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-# @app.after_request
-# def after_request(response):
-    # response.headers.add('Access-Control-Allow-Origin', 'http://localhost:3000')
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
     # response.headers.add('Accept', 'application/json')
     # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,Access-Control-Allow-Methods,Access-Control-Allow-Origin,access-control-allow-credentials,Access-Control-Allow-Headers')
     # response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     # response.headers.add('Access-Control-Allow-Credentials', 'true')
-    # return response
+    return response
 
 
 @login_manager.user_loader
